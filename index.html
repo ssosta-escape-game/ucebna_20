@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>C20 – Matematika</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Orbitron:wght@600&display=swap');
+
+/* RESET */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  background:#06121f;
+  color:#e6f7ff;
+  font-family:'Inter',sans-serif;
+  padding:22px 16px;
+  min-height:100vh;
+  position:relative;
+  overflow-x:hidden;
+}
+
+/* ANIMOVANÁ MATEMATICKÁ MRIEŽKA */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    linear-gradient(90deg, rgba(0,150,255,0.08) 1px, transparent 1px),
+    linear-gradient(rgba(0,150,255,0.08) 1px, transparent 1px);
+  background-size:34px 34px;
+  animation:gridMove 22s linear infinite;
+  z-index:-2;
+}
+
+@keyframes gridMove{
+  0%{ transform:translateY(0); }
+  100%{ transform:translateY(34px); }
+}
+
+/* GLOW ORBS */
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(0,150,255,0.25), transparent 60%),
+    radial-gradient(circle at 80% 70%, rgba(0,200,255,0.2), transparent 60%);
+  filter:blur(70px);
+  z-index:-3;
+}
+
+/* FLOATING MATH SYMBOLS */
+.bg span{
+  position:absolute;
+  font-size:3.4rem;
+  color:rgba(255,255,255,0.06);
+  user-select:none;
+  z-index:-1;
+  animation:float 7s ease-in-out infinite;
+}
+
+@keyframes float{
+  0%{ transform:translateY(0); }
+  50%{ transform:translateY(-14px); }
+  100%{ transform:translateY(0); }
+}
+
+.bg span:nth-child(1){ top:10%; left:12%; }
+.bg span:nth-child(2){ top:35%; right:14%; }
+.bg span:nth-child(3){ top:60%; left:20%; }
+.bg span:nth-child(4){ top:78%; right:28%; }
+.bg span:nth-child(5){ top:85%; left:60%; }
+
+/* ✅ NOVÁ FUTURISTICKÁ HLAVIČKA */
+.math-header{
+  text-align:center;
+  margin-bottom:34px;
+  padding:26px 18px;
+  background:rgba(0, 40, 70, 0.35);
+  border-radius:22px;
+  border:1px solid rgba(0,170,255,0.35);
+  box-shadow:0 0 28px rgba(0,170,255,0.25);
+  backdrop-filter:blur(12px);
+  position:relative;
+  overflow:hidden;
+}
+
+.math-header::before{
+  content:"π  ∑  √  ∞  Δ";
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -50%);
+  font-size:4.4rem;
+  letter-spacing:18px;
+  color:rgba(255,255,255,0.04);
+  pointer-events:none;
+  user-select:none;
+}
+
+.math-badge{
+  display:inline-block;
+  padding:6px 16px;
+  margin-bottom:14px;
+  font-size:0.75rem;
+  letter-spacing:1px;
+  color:#00c8ff;
+  background:rgba(0,170,255,0.15);
+  border:1px solid rgba(0,170,255,0.35);
+  border-radius:20px;
+  text-transform:uppercase;
+}
+
+.math-header h1{
+  font-size:2.4rem;
+  color:#00aaff;
+  letter-spacing:3px;
+  text-shadow:0 0 16px rgba(0,170,255,0.7);
+  margin-bottom:6px;
+}
+
+.math-header p{
+  font-size:1rem;
+  opacity:0.9;
+}
+
+.underline{
+  width:160px;
+  height:3px;
+  margin:14px auto 0;
+  background:linear-gradient(90deg, transparent, #00c8ff, transparent);
+  animation:glowline 2.4s ease-in-out infinite;
+  border-radius:4px;
+}
+
+@keyframes glowline{
+  0%{ opacity:0.3; transform:scaleX(0.7); }
+  50%{ opacity:1; transform:scaleX(1); }
+  100%{ opacity:0.3; transform:scaleX(0.7); }
+}
+
+/* QUESTIONS WRAPPER */
+.questions{
+  max-width:500px;
+  margin:auto;
+}
+
+/* QUESTION CARD */
+.question{
+  background:rgba(255,255,255,0.06);
+  backdrop-filter:blur(12px);
+  border-radius:20px;
+  padding:1.3rem 1.4rem;
+  margin-bottom:1.3rem;
+  border-left:4px solid #00aaff;
+  border-top:1px solid rgba(255,255,255,0.1);
+  border-right:1px solid rgba(255,255,255,0.1);
+  box-shadow:0 0 22px rgba(0,170,255,0.18);
+  transition:.25s;
+}
+
+.question:hover{
+  transform:translateY(-5px);
+  box-shadow:0 0 32px rgba(0,170,255,0.35);
+}
+
+.q-text{
+  font-size:1.05rem;
+  font-weight:500;
+  line-height:1.55;
+}
+
+.question img{
+  width:100%;
+  margin-top:0.8rem;
+  border-radius:12px;
+  box-shadow:0 0 14px rgba(0,170,255,0.25);
+}
+
+/* CHECKPOINT */
+.checkpoint{
+  max-width:500px;
+  margin:auto;
+  margin-top:2.4rem;
+  padding:1.6rem;
+  border-radius:22px;
+  background:rgba(255,255,255,0.08);
+  border:2px dashed #00aaff;
+  text-align:center;
+  backdrop-filter:blur(10px);
+  box-shadow:0 0 22px rgba(0,170,255,0.25);
+}
+
+.checkpoint strong{
+  color:#00c3ff;
+  font-size:1.25rem;
+}
+
+/* FOOTER */
+
+.checkpoint {
+  max-width:500px;
+  margin:auto;
+  margin-top:2.4rem;
+  padding:1.6rem;
+  border-radius:22px;
+  background:rgba(255,255,255,0.06);
+  border:2px dashed #00aaff;
+  text-align:center;
+  backdrop-filter:blur(10px);
+  box-shadow:0 0 22px rgba(0,170,255,0.25);
+}
+
+.checkpoint p {
+  font-size:15px;
+  color:#e6f7ff;
+  margin-bottom:8px;
+}
+
+.insta-link {
+  display:inline-block;
+  font-size:16px;
+  font-weight:600;
+  color:#00aaff;
+  text-decoration:none;
+  text-shadow:0 0 10px rgba(0,170,255,0.6);
+  transition:0.3s;
+}
+
+.insta-link:hover {
+  color:#a8f7ff;
+  text-shadow:0 0 14px rgba(0,170,255,0.9);
+  transform:translateY(-2px);
+}
+
+.footer-brand {
+  text-align:center;
+  margin-top:18px;
+}
+
+.footer-brand .ornament {
+  font-size:20px;
+  color:#00aaff;
+  text-shadow:0 0 10px rgba(0,170,255,0.6);
+  margin-bottom:6px;
+}
+
+.footer-brand p {
+  font-size:14px;
+  color:#00aaff;
+  font-weight:600;
+  letter-spacing:1px;
+  text-shadow:0 0 10px rgba(0,170,255,0.6);
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg">
+  <span>π</span>
+  <span>√</span>
+  <span>∑</span>
+  <span>∞</span>
+  <span>Δ</span>
+</div>
+
+<!-- ✅ NOVÁ HLAVIČKA -->
+<header class="math-header">
+  <div class="math-badge">SSOSTA ESCAPE GAME • LEVEL 2</div>
+  <h1>UČEBŇA 20</h1>
+  <div class="underline"></div>
+</header>
+
+<main class="questions">
+
+<div class="question">
+  <div class="q-text">Koľko rôznych trojuholníkov je na obrázku vytvorených?</div>
+  <img src="resources/images/0_full.jpg" alt="Triangel">
+</div>
+
+<div class="question">
+  <div class="q-text">Aký je súčet vnútorných uhlov v šesťuholníku?</div>
+</div>
+
+<div class="question">
+  <div class="q-text">Aká je vzdialenosť medzi bodmi A = [1, 2] a B = [4, 6] v súradnicovej sústave?</div>
+</div>
+
+<div class="question">
+  <div class="q-text">Pravouhlý trojuholník má odvesny 6 cm a 8 cm. Aký je jeho obsah?</div>
+</div>
+
+<div class="question">
+  <div class="q-text">Postupnosť: 2, 3, 5, 8, 12, … Aké je 7. číslo?</div>
+</div>
+
+</main>
+
+<div class="checkpoint">
+  <p>📩 Odpovede pošli do DM na</p>
+  <a href="https://www.instagram.com/ssosta.escape.game/" target="_blank" class="insta-link">
+    @ssosta.escape.game
+  </a>
+</div>
+
+<div class="footer-brand">
+  <div class="ornament">✦ ✧ ✦</div>
+  <p class="footer-text">SSOSTA ESCAPE GAME</p>
+</div>
+
+</body>
+</html>
