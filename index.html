@@ -42,6 +42,32 @@ body::before{
   0%{ transform:translateY(0); }
   100%{ transform:translateY(34px); }
 }
+/* --- AUTOMATICKÉ ČÍSLOVANIE --- */
+.questions {
+  counter-reset: q-counter;
+}
+
+.q-header {
+  display:flex;
+  align-items:flex-start;
+  gap:.8rem;
+  margin-bottom:.5rem;
+}
+
+.q-num {
+  counter-increment: q-counter;
+  background:#00aaff;
+  color:#06121f;
+  font-weight:700;
+  border-radius:10px;
+  padding:.4rem .75rem;
+  font-size:1rem;
+  box-shadow:0 0 12px rgba(0,170,255,0.6);
+}
+
+.q-num::before {
+  content: counter(q-counter);
+}
 
 /* GLOW ORBS */
 body::after{
@@ -282,17 +308,23 @@ body::after{
 
 
 <div class="question">
+  <div class="q-header">
+    <div class="q-num">1</div>
   <div class="q-text">Tehla váži kilo a pol tehly.
 Koľko váži jedna tehla?
 </div>
   
 </div>
 <div class="question">
+  <div class="q-header">
+    <div class="q-num">2</div>
 <div class="q-text">Koľko rôznych trojuholníkov je na obrázku vytvorených?</div>
 <img src="resources/images/0_full.jpg" alt="Triangel">
 </div>
 
 <div class="question">
+  <div class="q-header">
+    <div class="q-num">3</div>
   <div class="q-text">O tomto helénskom matematikovi z Alexandrie (nazývanom tiež otec algebry) okrem toho, že žil okolo roku 250 pred Kristom, veľa nevieme. Vďaka jednému z jeho obdivovateľov, ktorý popísal jeho život pomocou algebraických hádaniek, vieme, akého se dožil veku.
 Diofantova mladosť trvala 1/6 jeho života. Fúzy mu narástly o ďalšiu 1/12 jeho života. O nasledujúcu 1/7 života sa Diofantos oženil. Po piatich rokoch sa mu narodil syn. Syn žil presne 1/2 dĺžky života svojho otca. Diofantos zomrel 4 roky po smrti svojho syna.
 Ako dlho žil Diofantos?
@@ -300,6 +332,8 @@ Ako dlho žil Diofantos?
 </div>
 
 <div class="question">
+  <div class="q-header">
+    <div class="q-num">4</div>
   <div class="q-text">V Lysej pod Plešatou sa majú veci takto:
 Žiadny dvaja obyvatelia nemajú na hlave presne rovnaký počet vlasov.
 Žiadny obyvateľ nemá na hlave presne 518 vlasov.
@@ -309,6 +343,8 @@ Aký je najvyšší možný počet obyvateľov?
 </div>
 
 <div class="question">
+  <div class="q-header">
+    <div class="q-num">5</div>
   <div class="q-text">Nájdite 10-miestne číslo, pre ktoré platí:
 prvá číslica značí, koľko núl sa v danom čísle nachádza
 druhá číslica predstavuje, koľko jednotiek je v danom čísle
@@ -333,4 +369,5 @@ tretia číslica počet dvojok
 
 </body>
 </html>
+
 
